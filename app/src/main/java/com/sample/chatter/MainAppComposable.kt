@@ -17,7 +17,7 @@ fun MainApp() {
         // Start with a nav controller its the entry point for navigation
         // startDestination is the first screen to be shown
         // Passing navController to each screen to navigate between screens
-        // chech git hub
+        // chech git hub again
         // Porgress: Need to setup hilt properly (40 mins - part 1)
 
         val navController = rememberNavController()
