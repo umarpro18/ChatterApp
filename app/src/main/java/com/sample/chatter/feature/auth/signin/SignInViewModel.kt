@@ -3,15 +3,17 @@ package com.sample.chatter.feature.auth.signin
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
-class SignInViewModel : ViewModel() {
+class SignInViewModel @Inject constructor(): ViewModel() {
 
     private val _state = MutableStateFlow<SignInState>(SignInState.Idle)
     val state = _state.asStateFlow()
 
+    //https://console.firebase.google.com/project/chatter-d352f/overview
     fun signIn(email: String, password: String) {
         _state.value = SignInState.Loading
         // Firebase Auth logic here
@@ -19,7 +21,11 @@ class SignInViewModel : ViewModel() {
             .addOnCompleteListener { result ->
                 if (result.isSuccessful) {
                     // On success
-                    _state.value = SignInState.Success
+                    result.result.user?.let {
+                        _state.value = SignInState.Success
+                        return@addOnCompleteListener
+                    }
+                    _state.value = SignInState.Error("Authentication failed")
                 } else {
                     // On error
                     _state.value = SignInState.Error("Authentication failed")

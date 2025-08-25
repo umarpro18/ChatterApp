@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.sample.chatter.feature.auth.signin.SignInScreen
 import com.sample.chatter.feature.auth.signup.SignUpScreen
 import com.sample.chatter.feature.home.HomeScreen
@@ -18,11 +19,14 @@ fun MainApp() {
         // startDestination is the first screen to be shown
         // Passing navController to each screen to navigate between screens
         // chech git hub again ...
-        // Porgress: Need to setup hilt properly (40 mins - part 1)
+        // Porgress: Need to signup viewmodel (48 mins - part 1)
 
         val navController = rememberNavController()
 
-        NavHost(navController = navController, startDestination = "signin") {
+        val startScreen = FirebaseAuth.getInstance().currentUser?.let {
+            "home"
+        } ?: "signin"
+        NavHost(navController = navController, startDestination = startScreen) {
             composable("signin") {
                 SignInScreen(navController)
             }
