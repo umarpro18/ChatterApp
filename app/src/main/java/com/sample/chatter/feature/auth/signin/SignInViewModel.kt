@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class SignInViewModel @Inject constructor(): ViewModel() {
 
     private val _state = MutableStateFlow<SignInState>(SignInState.Idle)
-    val state = _state.asStateFlow()
+    val signInState = _state.asStateFlow()
 
     //https://console.firebase.google.com/project/chatter-d352f/overview
     fun signIn(email: String, password: String) {

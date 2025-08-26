@@ -42,7 +42,7 @@ fun SignInScreen(
 ) {
 
     val viewModel: SignInViewModel = hiltViewModel()
-    val uiState = viewModel.state.collectAsState()
+    val uiState = viewModel.signInState.collectAsState()
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
