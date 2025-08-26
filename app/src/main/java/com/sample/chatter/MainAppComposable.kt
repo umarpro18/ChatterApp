@@ -18,8 +18,10 @@ fun MainApp() {
         // Start with a nav controller its the entry point for navigation
         // startDestination is the first screen to be shown
         // Passing navController to each screen to navigate between screens
-        // chech git hub again ...
-        // Porgress: Need to signup viewmodel (48 mins - part 1)
+
+        // Build an Expense Tracker App with Jetpack Compose & MVVM Part 1, 2, 3, 4
+        // https://www.youtube.com/watch?v=Z1Yd7upQsXY (part 1)
+        // Progress: Part 2 yet to start..
 
         val navController = rememberNavController()
 
