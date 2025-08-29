@@ -26,18 +26,18 @@ fun MainApp() {
         val navController = rememberNavController()
 
         val startScreen = FirebaseAuth.getInstance().currentUser?.let {
-            "home"
-        } ?: "signin"
+            Route.HomeRoute
+        } ?: Route.SignInRoute
         NavHost(navController = navController, startDestination = startScreen) {
-            composable("signin") {
+            composable<Route.SignInRoute> {
                 SignInScreen(navController)
             }
 
-            composable("signup") {
+            composable<Route.SignUpRoute> {
                 SignUpScreen(navController)
             }
 
-            composable("home") {
+            composable<Route.HomeRoute> {
                 HomeScreen(navController)
             }
         }
