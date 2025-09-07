@@ -35,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.sample.chatter.R
+import com.sample.chatter.Route
 
 @Composable
 fun SignInScreen(
@@ -66,7 +67,10 @@ fun SignInScreen(
             }
 
             is SignInState.Success -> {
-                navController.navigate("home") {
+                navController.navigate(Route.HomeRoute) {
+                    popUpTo(Route.SignInRoute) {
+                        inclusive = true
+                    }
                 }
             }
         }
@@ -131,7 +135,7 @@ fun SignInScreen(
                 }
             }
 
-            TextButton(onClick = { navController.navigate("signup") }) {
+            TextButton(onClick = { navController.navigate(Route.SignUpRoute) }) {
                 Text(text = "Don't have an account? Sign Up")
             }
         }

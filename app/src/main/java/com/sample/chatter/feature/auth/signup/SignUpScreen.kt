@@ -59,7 +59,7 @@ fun SignUpScreen(
             }
 
             is SignUpState.Error -> {
-                val message = (uiState as SignUpState.Error).message
+                val message = uiState.value.let { (it as SignUpState.Error).message }
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
 
