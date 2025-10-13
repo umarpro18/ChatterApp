@@ -34,8 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.sample.chatter.AppRoute
 import com.sample.chatter.R
-import com.sample.chatter.Route
 
 @Composable
 fun SignInScreen(
@@ -67,8 +67,8 @@ fun SignInScreen(
             }
 
             is SignInState.Success -> {
-                navController.navigate(Route.HomeRoute) {
-                    popUpTo(Route.SignInRoute) {
+                navController.navigate(AppRoute.HomeRoute) {
+                    popUpTo(AppRoute.SignInRoute) {
                         inclusive = true
                     }
                 }
@@ -126,7 +126,7 @@ fun SignInScreen(
                 }
             }
 
-            TextButton(onClick = { navController.navigate(Route.SignUpRoute) }) {
+            TextButton(onClick = { navController.navigate(AppRoute.SignUpRoute) }) {
                 Text(text = "Don't have an account? Sign Up")
             }
         }
