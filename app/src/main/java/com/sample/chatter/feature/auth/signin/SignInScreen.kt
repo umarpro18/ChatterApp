@@ -76,7 +76,6 @@ fun SignInScreen(
         }
     }
 
-
     // Basically provide top bar and bottom bar (Home screen feel)
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -87,12 +86,6 @@ fun SignInScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-
-            // Here you can add your sign-in UI components
-            // For example, TextFields for email and password, SignIn button, etc.
-            // You can also add navigation to SignUpScreen if needed
-            // Example: Button(onClick = { navController.navigate("signup") }) { Text("Sign Up") }
-            // For now, we will just leave it empty
 
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -108,7 +101,7 @@ fun SignInScreen(
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("User Name") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
 
             OutlinedTextField(
@@ -127,9 +120,7 @@ fun SignInScreen(
                 Button(
                     onClick = { viewModel.signIn(email, password) },
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = email.isNotEmpty() && password.isNotEmpty() && uiState.value == SignInState.Idle || uiState.value == SignInState.Error(
-                        ""
-                    )
+                    enabled = email.isNotEmpty() && password.isNotEmpty() && uiState.value is SignInState.Idle || uiState.value is SignInState.Error
                 ) {
                     Text("Sign In")
                 }

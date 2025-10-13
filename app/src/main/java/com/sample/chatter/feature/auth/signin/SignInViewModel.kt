@@ -1,5 +1,6 @@
 package com.sample.chatter.feature.auth.signin
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ class SignInViewModel @Inject constructor(): ViewModel() {
     fun signIn(email: String, password: String) {
         _state.value = SignInState.Loading
         // Firebase Auth logic here
+        Log.d("SignInViewModel", "signIn: email=$email, password=$password")
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { result ->
                 if (result.isSuccessful) {

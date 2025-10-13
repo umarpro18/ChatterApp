@@ -1,5 +1,6 @@
 package com.sample.chatter.feature.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,7 @@ fun HomeScreen(navController: NavController) {
                 .padding(it)
                 .fillMaxSize()
         ) {
-
+            Log.d("HomeScreen umarNew", "Channels: ${channel.value.size}")
             LazyColumn(modifier = Modifier.align(androidx.compose.ui.Alignment.Center)) {
                 items(channel.value) { chan ->
                     Column(

@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sample.chatter.R
+import com.sample.chatter.Route
 
 @Composable
 fun SignUpScreen(
@@ -65,7 +66,7 @@ fun SignUpScreen(
 
             is SignUpState.Success -> {
                 // Navigate to home screen on success
-                navController.navigate("home")
+                navController.navigate(Route.HomeRoute)
             }
         }
     }
