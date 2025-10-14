@@ -24,12 +24,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun TidBookTimerScreen(navController: NavController) {
-    val timerViewModel: TimerViewModel = hiltViewModel()
-
+fun TidBookTimerScreen(
+    navController: NavController,
+    timerViewModel: TimerViewModel = hiltViewModel()
+) {
     val startTime = timerViewModel.startTime.collectAsStateWithLifecycle()
     val elapsedTime = timerViewModel.elapsedTime.collectAsStateWithLifecycle()
     val isRunning = timerViewModel.isRunning.collectAsStateWithLifecycle()
@@ -41,6 +44,27 @@ fun TidBookTimerScreen(navController: NavController) {
         }
     }
 
+    TidBookTimerScreenContent(
+        startTime = startTime.value,
+        elapsedTime = elapsedTime.value,
+        isRunning = isRunning.value,
+        onStart = { timerViewModel.startTimer() },
+        onStop = { timerViewModel.stopTimer() },
+        onPause = { timerViewModel.pauseTimer() },
+        onResume = { timerViewModel.resumeTimer() }
+    )
+}
+
+@Composable
+private fun TidBookTimerScreenContent(
+    startTime: LocalDateTime?,
+    elapsedTime: Long,
+    isRunning: Boolean,
+    onStart: () -> Unit,
+    onStop: () -> Unit,
+    onPause: () -> Unit,
+    onResume: () -> Unit,
+) {
     val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
     Column(
@@ -50,75 +74,50 @@ fun TidBookTimerScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Date and elapsed
         Text(
-            "Date: ${startTime.value?.toLocalDate() ?: java.time.LocalDate.now()}",
+            "Date: ${startTime?.toLocalDate() ?: LocalDate.now()}",
             style = MaterialTheme.typography.titleMedium
         )
         Text(
-            "Elapsed: ${(elapsedTime.value / 3600)}:${((elapsedTime.value % 3600) / 60)}:${(elapsedTime.value % 60)}",
+            "Elapsed: ${(elapsedTime / 3600)}:${((elapsedTime % 3600) / 60)}:${(elapsedTime % 60)}",
             style = MaterialTheme.typography.titleLarge
         )
-
-        // Buttons
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Start (big green)
             Button(
-                onClick = { timerViewModel.startTimer() },
+                onClick = onStart,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .weight(2f)
-                    .height(56.dp)
-            ) {
-                Text("Start")
-            }
+                modifier = Modifier.weight(2f).height(56.dp)
+            ) { Text("Start") }
 
-            // Stop (big red)
             Button(
-                onClick = { timerViewModel.stopTimer() },
+                onClick = onStop,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336)),
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .weight(2f)
-                    .height(56.dp)
-            ) {
-                Text("Stop")
-            }
+                modifier = Modifier.weight(2f).height(56.dp)
+            ) { Text("Stop") }
         }
-
-        // Secondary buttons (Pause, Resume)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Button(
-                onClick = { timerViewModel.pauseTimer() },
+                onClick = onPause,
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .weight(1f)
-                    .height(48.dp)
-            ) {
-                Text("Pause")
-            }
+                modifier = Modifier.weight(1f).height(48.dp)
+            ) { Text("Pause") }
 
             Button(
-                onClick = { timerViewModel.resumeTimer() },
+                onClick = onResume,
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .weight(1f)
-                    .height(48.dp)
-            ) {
-                Text("Resume")
-            }
+                modifier = Modifier.weight(1f).height(48.dp)
+            ) { Text("Resume") }
         }
-
-        // Start time display
         Text(
-            "Start Time: ${startTime.value?.toLocalTime()?.format(formatter) ?: "--:--:--"}",
+            "Start Time: ${startTime?.toLocalTime()?.format(formatter) ?: "--:--:--"}",
             style = MaterialTheme.typography.bodyMedium
         )
     }
@@ -127,5 +126,13 @@ fun TidBookTimerScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun TidBookTimerScreenPreview() {
-    TidBookTimerScreen(navController = rememberNavController())
+    TidBookTimerScreenContent(
+        startTime = LocalDateTime.now(),
+        elapsedTime = 3723, // 1 hour, 2 min, 3 sec
+        isRunning = true,
+        onStart = {},
+        onStop = {},
+        onPause = {},
+        onResume = {}
+    )
 }
