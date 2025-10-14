@@ -65,8 +65,12 @@ fun SignUpScreen(
             }
 
             is SignUpState.Success -> {
-                // Navigate to home screen on success
-                navController.navigate(AppRoute.HomeRoute)
+                // Navigate to home screen on success and clear back stack
+                navController.navigate(AppRoute.HomeRoute) {
+                    popUpTo(AppRoute.SignInRoute) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }

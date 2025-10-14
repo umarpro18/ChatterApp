@@ -11,4 +11,7 @@ interface AppRoute {
 
     @Serializable
     data object HomeRoute : AppRoute
+
+    @Serializable
+    data object TidBookTimerRoute : AppRoute
 }

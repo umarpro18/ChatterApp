@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.sample.chatter.feature.auth.signin.SignInScreen
 import com.sample.chatter.feature.auth.signup.SignUpScreen
 import com.sample.chatter.feature.home.HomeScreen
+import com.sample.chatter.feature.tidbook.TidBookTimerScreen
 
 @Composable
 fun MainApp() {
@@ -39,6 +40,10 @@ fun MainApp() {
 
             composable<AppRoute.HomeRoute> {
                 HomeScreen(navController)
+            }
+
+            composable<AppRoute.TidBookTimerRoute>{
+                TidBookTimerScreen(navController)
             }
         }
     }

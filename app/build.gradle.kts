@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.sample.chatter"
-        minSdk = 25
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -73,4 +73,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-database")
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
 }

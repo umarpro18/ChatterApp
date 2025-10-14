@@ -67,7 +67,15 @@ fun SignInScreen(
             }
 
             is SignInState.Success -> {
-                navController.navigate(AppRoute.HomeRoute) {
+                // Navigate to Home and clear back stack
+                /*navController.navigate(AppRoute.HomeRoute) {
+                    popUpTo(AppRoute.SignInRoute) {
+                        inclusive = true
+                    }
+                }*/
+
+                // Navigate to Tid book timer screen and clear back stack
+                navController.navigate(AppRoute.TidBookTimerRoute) {
                     popUpTo(AppRoute.SignInRoute) {
                         inclusive = true
                     }
@@ -132,6 +140,7 @@ fun SignInScreen(
         }
     }
 }
+
 
 @Preview
 @Composable
