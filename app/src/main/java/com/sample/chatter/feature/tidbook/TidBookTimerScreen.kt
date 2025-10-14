@@ -1,5 +1,6 @@
 package com.sample.chatter.feature.tidbook
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -90,16 +91,19 @@ private fun TidBookTimerScreenContent(
                 onClick = onStart,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.weight(2f).height(56.dp)
+                modifier = Modifier.weight(2f).height(56.dp),
+                enabled = !isRunning && startTime == null
             ) { Text("Start") }
 
             Button(
                 onClick = onStop,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336)),
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.weight(2f).height(56.dp)
+                modifier = Modifier.weight(2f).height(56.dp),
+                enabled = startTime != null
             ) { Text("Stop") }
         }
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -107,13 +111,15 @@ private fun TidBookTimerScreenContent(
             Button(
                 onClick = onPause,
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.weight(1f).height(48.dp)
+                modifier = Modifier.weight(1f).height(48.dp),
+                enabled = isRunning
             ) { Text("Pause") }
 
             Button(
                 onClick = onResume,
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.weight(1f).height(48.dp)
+                modifier = Modifier.weight(1f).height(48.dp),
+                enabled = !isRunning && startTime != null
             ) { Text("Resume") }
         }
         Text(
