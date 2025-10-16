@@ -15,28 +15,6 @@ class SignInViewModel @Inject constructor() : ViewModel() {
     val signUpState = _state.asStateFlow()
 
     //https://console.firebase.google.com/project/chatter-d352f/overview
-    /*fun signUp(name: String, email: String, password: String) {
-        _state.value = SignUpState.Loading
-        // Firebase Auth logic here
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { result ->
-                if (result.isSuccessful) {
-                    // On success
-                    result.result.user?.let {
-                        it.updateProfile(
-                            UserProfileChangeRequest.Builder().setDisplayName(name).build()
-                        )
-                        _state.value = SignUpState.Success
-                        return@addOnCompleteListener
-                    }
-                    _state.value = SignUpState.Error("SignUp failed")
-                } else {
-                    // On error
-                    _state.value = SignUpState.Error("SignUp failed")
-                }
-            }
-    }*/
-
     fun signUp(name: String, email: String, password: String) {
         _state.value = SignUpState.Loading
 
